@@ -1,1 +1,17 @@
-Hello, #{@desktop.name}!
+- content_for :sidebar do
+  %ul.sidebar-actions
+    %li.sidebar-actions-item
+      = link_to "Txt", "#", class: "action-new-text-note", title: "Add new text note"
+    %li.sidebar-actions-item
+      = link_to "Img", "#", class: "action-new-image-note", title: "Add new image note"
+  
+  %ul.sidebar-desktops
+    - @desktops.each do |desktop|
+      %li.sidebar-desktops-item
+        = link_to desktop.name, desktop_path(desktop), class: "selected" if desktop.id == @current_desktop.id
+    
+    %li.sidebar-desktop-items-new
+      = link_to "+", "#", title: "Add new desktop"
+
+
+Hello, #{@current_desktop.name}!

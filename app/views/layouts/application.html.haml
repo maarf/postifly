@@ -7,4 +7,9 @@
     = csrf_meta_tags
   
   %body
-    = yield
+    
+    %aside#sidebar
+      = content_for :sidebar
+    
+    %section#content
+      = yield

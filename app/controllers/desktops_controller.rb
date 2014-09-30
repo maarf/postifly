@@ -1,7 +1,10 @@
 class DesktopsController < ApplicationController
   
   def index
-    @desktop = Desktop.first
+    @desktops = Desktop.all
+    @current_desktop = Desktop.first
+    
+    @notes = @current_desktop.notes
   end
   
 end
