@@ -11,4 +11,20 @@ class Note < ActiveRecord::Base
   validates :frame,     presence: true
   validates :frame,     format: { with: /\A\d+,\d+,\d+,\d+\z/ }
   
+  def top
+    frame.split(',')[0]
+  end
+  
+  def left
+    frame.split(',')[1]
+  end
+  
+  def width
+    frame.split(',')[2]
+  end
+  
+  def height
+    frame.split(',')[3]
+  end
+  
 end
