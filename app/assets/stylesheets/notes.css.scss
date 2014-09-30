@@ -1,0 +1,31 @@
+.notes-list {
+  position: relative;
+}
+
+.notes-list-item {
+  background: #FC8E09;
+  color: #C6540B;
+  position: absolute;
+  
+  &:before {
+    bottom: 0;
+    background: #C7540A;
+    content: "";
+    height: 24px;
+    position: absolute;
+    right: 0;
+    width: 24px;
+  }
+  
+  &:after {
+    border: 12px solid transparent;
+    border-right-color: #F4F4F4;
+    border-bottom-color: #F4F4F4;
+    bottom: 0;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 0;
+    width: 0;
+  }
+}

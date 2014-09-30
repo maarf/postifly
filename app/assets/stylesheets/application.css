@@ -13,5 +13,6 @@
  *= require reset
  *= require general
  *= require sidebar
+ *= require notes
  *= require_self
  */

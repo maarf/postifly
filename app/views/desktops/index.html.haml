@@ -14,4 +14,12 @@
       = link_to "+", "#", title: "Add new desktop"
 
 
-Hello, #{@current_desktop.name}!
+- if @notes.any?
+  %ul.notes-list
+    - @notes.each do |note|
+      - style  = "top:    #{note.top}px;"
+      - style += "left:   #{note.left}px;"
+      - style += "width:  #{note.width}px;"
+      - style += "height: #{note.height}px;"
+      %li.notes-list-item{ style: style }
+        = note.content
