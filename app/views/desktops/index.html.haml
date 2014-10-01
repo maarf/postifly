@@ -17,9 +17,15 @@
 - if @notes.any?
   %ul.notes-list
     - @notes.each do |note|
+      - classes = ["note-type-#{note.note_type}"]
       - style  = "top:    #{note.top}px;"
       - style += "left:   #{note.left}px;"
       - style += "width:  #{note.width}px;"
       - style += "height: #{note.height}px;"
-      %li.notes-list-item{ style: style }
-        = note.content
+      - if note.note_type == Note::IMAGE_TYPE
+        - classes << "note-content-as-fill"
+        - style += "background-image: url(#{note.content})"
+      %li.notes-list-item{ class: classes, style: style }
+        - unless note.note_type == Note::IMAGE_TYPE
+          .note-content
+            = note.content 

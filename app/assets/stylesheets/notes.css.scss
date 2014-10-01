@@ -4,7 +4,7 @@
 
 .notes-list-item {
   background: #FC8E09;
-  color: #C6540B;
+  color: #C7540A;
   position: absolute;
   
   &:before {
@@ -28,4 +28,18 @@
     right: 0;
     width: 0;
   }
+}
+
+.note-type-image {
+  background: #71459A;
+  color: #421C67;
+  
+  &:before {
+    background: #421C67;
+  }
+}
+
+.note-content-as-fill {
+  background-position: center;
+  background-size: cover;
 }
