@@ -8,7 +8,7 @@
   %ul.sidebar-desktops
     - @desktops.each do |desktop|
       %li.sidebar-desktops-item
-        = link_to desktop.name, desktop_path(desktop), class: "selected" if desktop.id == @current_desktop.id
+        = link_to desktop.name, desktop_path(desktop), class: ("selected" if desktop.id == @current_desktop.id)
     
     %li.sidebar-desktop-items-new
       = link_to "+", "#", title: "Add new desktop"
