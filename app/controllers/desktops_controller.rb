@@ -1,8 +1,8 @@
 class DesktopsController < ApplicationController
   
-  def index
+  def show
     @desktops = Desktop.all
-    @current_desktop = Desktop.first
+    @current_desktop = if params[:id] then Desktop.find(params[:id]) else Desktop.first end
     
     @notes = @current_desktop.notes
   end

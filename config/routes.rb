@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'desktops#index'
+  root 'desktops#show'
   
   resources :desktops
   
