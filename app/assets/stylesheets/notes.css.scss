@@ -5,7 +5,10 @@
 .notes-list-item {
   background: #FC8E09;
   color: #C7540A;
+  display: -webkit-flex;
+  display: flex;
   position: absolute;
+  
   
   &:before {
     bottom: 0;
@@ -42,4 +45,8 @@
 .note-content-as-fill {
   background-position: center;
   background-size: cover;
+}
+
+.note-content {
+  margin: auto;
 }
