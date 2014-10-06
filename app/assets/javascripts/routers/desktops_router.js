@@ -5,6 +5,10 @@ var DesktopsRouter = Backbone.Router.extend({
   },
   show: function(id) {
     
+    if (Postifly.currentDesktopId == id) {
+      return
+    }
+    
     // Deselect previous desktop if any
     if (Postifly.currentDesktop) {
       Postifly.currentDesktop.trigger("deselected")
@@ -14,6 +18,8 @@ var DesktopsRouter = Backbone.Router.extend({
     Postifly.currentDesktopId = id
     Postifly.currentDesktop = Postifly.desktops.find(function(desktop) { return desktop.id == id })
     Postifly.currentDesktop.trigger("selected")
+    
+    Content.changeDesktop()
     
     console.log("Current desktop: " + Postifly.currentDesktopId)
   }
