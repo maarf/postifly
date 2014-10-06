@@ -7,8 +7,7 @@
   color: #C7540A;
   display: -webkit-flex;
   display: flex;
-  position: absolute;
-  
+  position: absolute !important; // Because Webkit + jQuery draggable wants to set this to relative
   
   &:before {
     bottom: 0;
