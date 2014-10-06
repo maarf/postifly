@@ -7,12 +7,17 @@
   
   %ul.sidebar-desktops
     - @desktops.each do |desktop|
-      %li.sidebar-desktops-item
-        = link_to desktop.name, desktop_path(desktop), class: ("selected" if desktop.id == @current_desktop.id)
+      %li.sidebar-desktops-item{ id: "desktop-row-#{desktop.id}" }
+        - link_class = ["sidebar-desktops-item-link"]
+        - link_class << "selected" if desktop.id == @current_desktop.id
+        = link_to desktop.name, desktop_path(desktop), class: link_class
     
     %li.sidebar-desktop-items-new
-      = link_to "+", "#", title: "Add new desktop"
+      = link_to "+", "#", title: "Add new desktop", class: "sidebar-desktop-items-new-link"
 
+- content_for :javascripts do
+  = javascript_tag do
+    Postifly.init(#{@desktops.to_json.html_safe}, #{@all_notes.to_json.html_safe});
 
 - if @notes.any?
   %ul.notes-list
