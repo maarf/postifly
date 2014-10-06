@@ -33,6 +33,19 @@ var NoteView = Backbone.View.extend({
       this.$el.html(this.textNoteTemplate({ content: content }));
     }
     
+    var view = this
+    this.$el.draggable({
+      stop: function() {
+        var newFrame = parseInt(view.$el.css('top')) + ',' +
+                       parseInt(view.$el.css('left')) + ',' +
+                       parseInt(view.$el.css('width')) + ',' +
+                       parseInt(view.$el.css('height'));
+        console.log(newFrame)
+        view.model.set('frame', newFrame);
+        view.model.save()
+      }
+    });
+    
     return this;
   }
 })
