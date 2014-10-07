@@ -4,12 +4,13 @@ var Content = {
     notesList.html('');
     
     var notes = Postifly.notes.filter(function(note) {
-      return note.get('desktop_id') == Postifly.currentDesktopId
+      return note.get('desktop_id') == Postifly.currentDesktopId;
     });
     
     notes.forEach(function(note) {
-      var noteView = new NoteView({ model: note })
-      notesList.append(noteView.render().el)
+      var noteView = new NoteView({ model: note });
+      notesList.append(noteView.render().el);
+      noteView.resizeTextarea();
     });
   }
 }

@@ -24,6 +24,7 @@ var Sidebar = {
       
       var newNoteView = new NoteView({ model: newNote });
       $('.notes-list').append(newNoteView.render().el);
+      newNoteView.resizeTextarea();
     });
     
     // Add handler to create a new desktop when new desktop link is clicked

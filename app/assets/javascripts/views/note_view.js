@@ -1,18 +1,29 @@
 var NoteView = Backbone.View.extend({
   tagName: 'li',
   className: 'notes-list-item',
-  textNoteTemplate: _.template('<div class="note-content"><%= content %></div>'),
-  imageNoteTemplate: _.template(''),
+  template: _.template('<div class="note-content"><textarea><%= content %></textarea></div>'),
   events: {
+    "input textarea": "contentUpdate",
+    "focus textarea": "startEditing",
+    "blur textarea":  "stropEditing"
   },
   
   initialize: function() {
-    this.listenTo(this.model, 'change', this.render)
+    var model = this.model;
+    this.listenTo(this.model, 'change', function() {
+      // Don't render if the only change is frame or note is beeing edited
+      if (!_.isEqual(Object.keys(model.changed), ['frame']) && !this.isEditing) {
+        this.render();
+      }
+    });
   },
   
   render: function() {
     
-    var frame = this.model.get('frame').split(',')
+    console.log("render");
+    
+    // Set frame
+    var frame = this.model.get('frame').split(',');
     this.$el.css({
       'top':    frame[0] + 'px',
       'left':   frame[1] + 'px',
@@ -20,32 +31,67 @@ var NoteView = Backbone.View.extend({
       'height': frame[3] + 'px'
     });
     
-    this.$el.addClass('note-type-' + this.model.get("note_type"))
+    // Set type
+    this.$el.addClass('note-type-' + this.model.get("note_type"));
     
-    var content = this.model.get('content')
+    // Make template
+    var content = this.model.get('content');
+    this.$el.html(this.template({ content: content }));
     
+    // Special treatment for image notes
     if (this.model.get('note_type') == 'image') {
       this.$el.addClass('note-content-as-fill')
       this.$el.css({ 'background-image': 'url(' + content + ')'})
-      this.$el.html(this.imageNoteTemplate({}));
-      
-    } else {
-      this.$el.html(this.textNoteTemplate({ content: content }));
     }
     
-    var view = this
+    // Make draggable
+    var view = this;
     this.$el.draggable({
       stop: function() {
-        var newFrame = parseInt(view.$el.css('top')) + ',' +
-                       parseInt(view.$el.css('left')) + ',' +
-                       parseInt(view.$el.css('width')) + ',' +
-                       parseInt(view.$el.css('height'));
+        var newFrame = [parseInt(view.$el.css('top')),
+                        parseInt(view.$el.css('left')),
+                        parseInt(view.$el.css('width')),
+                        parseInt(view.$el.css('height'))].join();
         console.log(newFrame)
         view.model.set('frame', newFrame);
         view.model.save()
       }
     });
     
+    // Make textarea to size automatically
+    this.$('textarea').autosize({
+      append: ''
+    });
+    
     return this;
+  },
+  
+  resizeTextarea: function() {
+    setTimeout(function() {
+      this.$('textarea').trigger('autosize.resize');
+    }, 10);
+  },
+  
+  isEditing: false,
+  startEditing: function() {
+    this.isEditing = true;
+  },
+  endEditing: function() {
+    this.isEditing = false;
+    this.saveContent();
+  },
+  
+  saveTimeout: null,
+  contentUpdate: function(event) {
+    var view = this;
+    if (!this.saveTimeout) {
+      this.saveTimeout = setTimeout(function() {
+        view.saveContent();
+      }, 5000);
+    }
+  },
+  saveContent: function() {
+    this.saveTimeout = null;
+    this.model.save({ 'content': this.$('textarea').val() });
   }
-})
+});
