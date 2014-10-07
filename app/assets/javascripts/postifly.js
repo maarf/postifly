@@ -6,6 +6,6 @@ var Postifly = {
     Postifly.router = new DesktopsRouter();
     Backbone.history.start({pushState: true, root: '/'});
     
-    Sidebar.setUp();
+    SidebarController.setUp();
   }
 };

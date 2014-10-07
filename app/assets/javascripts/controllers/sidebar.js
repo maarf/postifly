@@ -1,4 +1,4 @@
-var Sidebar = {
+var SidebarController = {
   setUp: function() {
     var controller = this;
     

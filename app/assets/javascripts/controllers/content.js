@@ -1,4 +1,4 @@
-var Content = {
+var ContentController = {
   changeDesktop: function() {
     var notesList = $('.notes-list');
     notesList.html('');
