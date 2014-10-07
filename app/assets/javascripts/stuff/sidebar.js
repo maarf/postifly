@@ -49,7 +49,6 @@ var Sidebar = {
     Postifly.desktops.add(newDesktop);
     newDesktop.save({}, {
       success: function() {
-        console.log("success");
         Postifly.router.navigate("desktops/" + newDesktop.id, { trigger: true });
       }
     });
