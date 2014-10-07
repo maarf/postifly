@@ -5,6 +5,8 @@
 .notes-list-item {
   background: #FC8E09;
   color: #C7540A;
+  display: flex;
+  display: -webkit-flex;
   position: absolute !important; // Because Webkit + jQuery draggable wants to set this to relative
   
   &:before {
@@ -45,6 +47,8 @@
 }
 
 .note-content {
+  margin: auto 0;
+  text-align: center;
   width: 100%;
   
   textarea {
