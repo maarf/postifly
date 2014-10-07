@@ -55,6 +55,17 @@
     &:focus {
       outline: 0;
     }
+    
+    &::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    &::-moz-placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      opacity: 1;
+    }
+    &:-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
   }
 }
 

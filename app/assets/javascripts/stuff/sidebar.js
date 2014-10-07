@@ -41,6 +41,7 @@ var Sidebar = {
     var newNoteView = new NoteView({ model: newNote });
     $('.notes-list').append(newNoteView.render().el);
     newNoteView.resizeTextarea();
+    newNoteView.$('textarea').focus();
   },
   
   createDesktop: function() {
