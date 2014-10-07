@@ -32,20 +32,6 @@
   }
 }
 
-.note-type-image {
-  background: #71459A;
-  color: #421C67;
-  
-  &:before {
-    background: #421C67;
-  }
-}
-
-.note-content-as-fill {
-  background-position: center;
-  background-size: cover;
-}
-
 .note-content {
   margin: auto 0;
   text-align: center;
@@ -62,11 +48,41 @@
     padding: 0;
     resize: none;
     text-align: center;
+    vertical-align: top;
     width: 100%;
     -webkit-font-smoothing: antialiased;
     
     &:focus {
       outline: 0;
+    }
+  }
+}
+
+.note-type-image {
+  background-color: #71459A;
+  color: #421C67;
+  
+  &:before {
+    background: #421C67;
+  }
+  
+  textarea {
+    color: #421C67;
+  }
+}
+
+.note-content-as-fill {
+  background-position: center;
+  background-size: cover;
+  
+  .note-content {
+    display: none;
+  }
+  
+  &.note-editing {
+    .note-content {
+      background-color: #71459A;
+      display: block;
     }
   }
 }

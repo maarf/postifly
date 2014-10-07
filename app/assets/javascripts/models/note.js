@@ -1,3 +1,9 @@
 var Note = Backbone.Model.extend({
-  urlRoot: '/notes'
+  urlRoot: '/notes',
+  validate: function(attrs, options) {
+    console.log(attrs.content);
+    if (attrs.note_type == "image" && attrs.content.length < 10) {
+      return "content should be an URL";
+    }
+  }
 });

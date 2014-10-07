@@ -1,11 +1,12 @@
 var NoteView = Backbone.View.extend({
   tagName: 'li',
   className: 'notes-list-item',
-  template: _.template('<div class="note-content"><textarea><%= content %></textarea></div>'),
+  template: _.template('<div class="note-content"><textarea placeholder="enter your text"><%= content %></textarea></div>'),
   events: {
     "input textarea": "contentUpdate",
     "focus textarea": "startEditing",
-    "blur textarea":  "stropEditing"
+    "blur textarea":  "stopEditing",
+    "click":          "click"
   },
   
   initialize: function() {
@@ -37,11 +38,11 @@ var NoteView = Backbone.View.extend({
     // Make template
     var content = this.model.get('content');
     this.$el.html(this.template({ content: content }));
+    this.showImageIfPossible();
     
     // Special treatment for image notes
     if (this.model.get('note_type') == 'image') {
-      this.$el.addClass('note-content-as-fill')
-      this.$el.css({ 'background-image': 'url(' + content + ')'})
+      this.$('textarea').attr('placeholder', 'image url here');
     }
     
     // Make draggable
@@ -52,9 +53,12 @@ var NoteView = Backbone.View.extend({
                         parseInt(view.$el.css('left')),
                         parseInt(view.$el.css('width')),
                         parseInt(view.$el.css('height'))].join();
-        console.log(newFrame)
         view.model.set('frame', newFrame);
         view.model.save()
+        view.justDragged = true;
+        setTimeout(function() {
+          view.justDragged = false
+        }, 100);
       }
     });
     
@@ -74,13 +78,25 @@ var NoteView = Backbone.View.extend({
   
   isEditing: false,
   startEditing: function() {
+    console.log("Start editing");
+    this.$el.addClass('note-editing');
     this.isEditing = true;
+    this.justEdited = true;
   },
-  endEditing: function() {
+  stopEditing: function() {
+    console.log("End editing");
+    
+    this.$el.removeClass('note-editing');
     this.isEditing = false;
+    if (this.saveTimeout) {
+      clearTimeout(this.saveTimeout);
+    }
     this.saveContent();
+    
+    this.showImageIfPossible()
   },
   
+  // Save content in 5 second intervals when editing
   saveTimeout: null,
   contentUpdate: function(event) {
     var view = this;
@@ -93,5 +109,30 @@ var NoteView = Backbone.View.extend({
   saveContent: function() {
     this.saveTimeout = null;
     this.model.save({ 'content': this.$('textarea').val() });
+  },
+  
+  showImageIfPossible: function() {
+    if (this.model.get('note_type') == 'image') {
+      if (this.model.isValid()) {
+        console.log("valid");
+        this.$el.addClass('note-content-as-fill');
+        var content = this.model.get('content')
+        this.$el.css({ 'background-image': 'url(' + content + ')'});
+      } else {
+        console.log("invalid");
+      }
+    }
+  },
+  
+  // Start editing after a click (but not if it was a drag) if it's an image
+  // note
+  justDragged: false,
+  click: function(event) {
+    if (!this.justDragged && this.model.get('note_type') == 'image') {
+      console.log("click");
+      this.$el.addClass('note-editing');
+      this.$('textarea').focus();
+      this.$('textarea').trigger('autosize.resize');
+    }
   }
 });
