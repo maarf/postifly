@@ -22,8 +22,6 @@ var NoteView = Backbone.View.extend({
   
   render: function() {
     
-    console.log("render");
-    
     // Set frame
     var frame = this.model.get('frame').split(',');
     this.$el.css({
@@ -116,8 +114,6 @@ var NoteView = Backbone.View.extend({
   
   delete: function(event) {
     event.preventDefault();
-    
-    console.log("delete");
     this.model.destroy();
     this.remove();
   },
@@ -125,7 +121,6 @@ var NoteView = Backbone.View.extend({
   showImageIfPossible: function() {
     if (this.model.get('note_type') == 'image') {
       if (this.model.isValid()) {
-        console.log("valid");
         this.$el.addClass('note-content-as-fill');
         var content = this.model.get('content')
         this.$el.css({ 'background-image': 'url(' + content + ')'});
@@ -140,7 +135,6 @@ var NoteView = Backbone.View.extend({
   justDragged: false,
   click: function(event) {
     if (!this.justDragged /* && this.model.get('note_type') == 'image' */) {
-      console.log("click");
       this.$el.addClass('note-editing');
       this.$('textarea').focus();
       this.$('textarea').trigger('autosize.resize');

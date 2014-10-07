@@ -20,7 +20,5 @@ var DesktopsRouter = Backbone.Router.extend({
     Postifly.currentDesktop.trigger("selected")
     
     Content.changeDesktop()
-    
-    console.log("Current desktop: " + Postifly.currentDesktopId)
   }
 });

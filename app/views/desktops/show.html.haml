@@ -33,4 +33,4 @@
       %li.notes-list-item{ class: classes, style: style }
         - unless note.note_type == Note::IMAGE_TYPE
           .note-content
-            = note.content 
+            = note.content.gsub(/\n/, '<br>').html_safe
