@@ -86,3 +86,36 @@
     }
   }
 }
+
+.note-delete-link {
+  background: #fff;
+  border-radius: 10px;
+  display: none;
+  height: 20px;
+  left: -10px;
+  position: absolute;
+  text-indent: -9999px;
+  top: -10px;
+  width: 20px;
+  
+  &:before, &:after {
+    background: #666;
+    content: "";
+    height: 10px;
+    left: 9px;
+    position: absolute;
+    top: 5px;
+    width: 2px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  
+  &:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  };
+}
+
+.note-editing .note-delete-link, .note-just-edited .note-delete-link {
+  display: block;
+}

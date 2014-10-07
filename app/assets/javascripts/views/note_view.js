@@ -1,11 +1,12 @@
 var NoteView = Backbone.View.extend({
   tagName: 'li',
   className: 'notes-list-item',
-  template: _.template('<div class="note-content"><textarea placeholder="enter your text"><%= content %></textarea></div>'),
+  template: _.template('<a href="#" class="note-delete-link">Delete</a><div class="note-content"><textarea placeholder="enter your text"><%= content %></textarea></div>'),
   events: {
     "input textarea": "contentUpdate",
     "focus textarea": "startEditing",
     "blur textarea":  "stopEditing",
+    "click .note-delete-link": "delete",
     "click":          "click"
   },
   
@@ -78,13 +79,15 @@ var NoteView = Backbone.View.extend({
   
   isEditing: false,
   startEditing: function() {
-    console.log("Start editing");
     this.$el.addClass('note-editing');
     this.isEditing = true;
-    this.justEdited = true;
   },
   stopEditing: function() {
-    console.log("End editing");
+    this.$el.addClass('note-just-edited');
+    var view = this
+    setTimeout(function() {
+      view.$el.removeClass('note-just-edited');
+    }, 200);
     
     this.$el.removeClass('note-editing');
     this.isEditing = false;
@@ -111,6 +114,14 @@ var NoteView = Backbone.View.extend({
     this.model.save({ 'content': this.$('textarea').val() });
   },
   
+  delete: function(event) {
+    event.preventDefault();
+    
+    console.log("delete");
+    this.model.destroy();
+    this.remove();
+  },
+  
   showImageIfPossible: function() {
     if (this.model.get('note_type') == 'image') {
       if (this.model.isValid()) {
@@ -128,7 +139,7 @@ var NoteView = Backbone.View.extend({
   // note
   justDragged: false,
   click: function(event) {
-    if (!this.justDragged && this.model.get('note_type') == 'image') {
+    if (!this.justDragged /* && this.model.get('note_type') == 'image' */) {
       console.log("click");
       this.$el.addClass('note-editing');
       this.$('textarea').focus();

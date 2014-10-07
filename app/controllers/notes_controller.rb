@@ -13,6 +13,12 @@ class NotesController < ApplicationController
     respond_with(@note)
   end
   
+  def destroy
+    @note = Note.find(params[:id])
+    @note.destroy
+    respond_with(@note)
+  end
+  
   private
   
   def note_params
