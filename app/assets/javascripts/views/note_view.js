@@ -1,3 +1,5 @@
+var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)*([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/
+
 var NoteView = Backbone.View.extend({
   tagName: 'li',
   className: 'notes-list-item',
@@ -118,14 +120,13 @@ var NoteView = Backbone.View.extend({
     this.remove();
   },
   
+  // Test if content looks like a URL and set it as backgraund
   showImageIfPossible: function() {
     if (this.model.get('note_type') == 'image') {
-      if (this.model.isValid()) {
+      if (urlPattern.test(this.model.get('content'))) {
         this.$el.addClass('note-content-as-fill');
         var content = this.model.get('content')
         this.$el.css({ 'background-image': 'url(' + content + ')'});
-      } else {
-        console.log("invalid");
       }
     }
   },
