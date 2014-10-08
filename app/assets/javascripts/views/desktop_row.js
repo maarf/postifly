@@ -3,8 +3,11 @@ var DesktopRow = Backbone.View.extend({
   className: 'sidebar-desktops-item',
   template: _.template('<a href="#" class="desktop-delete">Delete</a><a href="<%= url %>" class="sidebar-desktops-item-link"><input value="<%= name %>" disabled></a>'),
   events: {
-    'click .sidebar-desktops-item-link': 'open',
-    'click .desktop-delete'            : 'delete'
+    'click    .sidebar-desktops-item-link': 'open',
+    'dblclick .sidebar-desktops-item-link': 'startEditing',
+    'blur     input':                       'endEditing',
+    'keypress input':                       'keyPress',
+    'click    .desktop-delete':             'delete'
   },
   
   initialize: function() {
@@ -37,6 +40,50 @@ var DesktopRow = Backbone.View.extend({
   open: function(event) {
     event.preventDefault();
     Postifly.router.navigate('desktops/' + this.model.id, { trigger: true });
+  },
+  
+  startEditing: function() {
+    this.$('input').attr('disabled', false).focus().select();
+  },
+  endEditing: function() {
+    // Check if not just edited because canceling also causes blur which again
+    // calls this
+    if (this.justEdited) {
+      return
+    }
+    this.setJustEdited();
+    
+    console.log(1);
+    
+    var input = this.$('input');
+    this.model.save({ 'name': input.val() });
+    input.attr('disabled', true);
+  },
+  cancelEditing: function() {
+    console.log(2);
+    this.setJustEdited();
+    
+    var input = this.$('input');
+    input.val(this.model.get('name'));
+    input.blur();
+    input.attr('disabled', true);
+  },
+  keyPress: function(event) {
+    // Enter key pressed
+    if (event.keyCode == 13) {
+      this.endEditing();
+    
+    // Escape key pressed
+    } else if (event.keyCode == 27) {
+      this.cancelEditing();
+    }
+  },
+  setJustEdited: function() {
+    this.justEdited = true;
+    view = this;
+    setTimeout(function() {
+      view.justEdited = false;
+    }, 200);
   },
   
   isSelected: false,

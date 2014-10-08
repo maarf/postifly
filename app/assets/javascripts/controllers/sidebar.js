@@ -50,11 +50,12 @@ var SidebarController = {
   
   createDesktop: function() {
     var newDesktop = new Desktop;
-    newDesktop.set("name", "Desktop " + ($('.sidebar-desktops-item').length + 1));
+    newDesktop.set('name', 'New Desktop');
     Postifly.desktops.add(newDesktop);
     newDesktop.save({}, {
       success: function() {
-        Postifly.router.navigate("desktops/" + newDesktop.id, { trigger: true });
+        Postifly.router.navigate('desktops/' + newDesktop.id, { trigger: true });
+        newDesktopRow.startEditing();
       }
     });
     
