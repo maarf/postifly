@@ -16,4 +16,4 @@ This should do it:
 
 ## Issues and improvements
 
-Many.
+Some.
