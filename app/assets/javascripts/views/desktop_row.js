@@ -57,6 +57,7 @@ var DesktopRow = Backbone.View.extend({
     
     var input = this.$('input');
     this.model.save({ 'name': input.val() });
+    input.blur();
     input.attr('disabled', true);
   },
   cancelEditing: function() {

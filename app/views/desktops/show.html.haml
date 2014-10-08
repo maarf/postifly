@@ -17,18 +17,17 @@
   = javascript_tag do
     Postifly.init(#{@desktops.to_json.html_safe}, #{@all_notes.to_json.html_safe});
 
-- if @notes.any?
-  %ul.notes-list
-    - @notes.each do |note|
-      - classes = ["note-type-#{note.note_type}"]
-      - style  = "top:    #{note.top}px;"
-      - style += "left:   #{note.left}px;"
-      - style += "width:  #{note.width}px;"
-      - style += "height: #{note.height}px;"
-      - if note.note_type == Note::IMAGE_TYPE
-        - classes << "note-content-as-fill"
-        - style += "background-image: url(#{note.content})"
-      %li.notes-list-item{ class: classes, style: style }
-        - unless note.note_type == Note::IMAGE_TYPE
-          .note-content
-            = note.content.gsub(/\n/, '<br>').html_safe
+%ul.notes-list
+  - @notes.each do |note|
+    - classes = ["note-type-#{note.note_type}"]
+    - style  = "top:    #{note.top}px;"
+    - style += "left:   #{note.left}px;"
+    - style += "width:  #{note.width}px;"
+    - style += "height: #{note.height}px;"
+    - if note.note_type == Note::IMAGE_TYPE
+      - classes << "note-content-as-fill"
+      - style += "background-image: url(#{note.content})"
+    %li.notes-list-item{ class: classes, style: style }
+      - unless note.note_type == Note::IMAGE_TYPE
+        .note-content
+          = note.content.gsub(/\n/, '<br>').html_safe
