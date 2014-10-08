@@ -1,7 +1,7 @@
 var DesktopRow = Backbone.View.extend({
   tagName: 'li',
   className: 'sidebar-desktops-item',
-  template: _.template('<a href="#" class="desktop-delete">Delete</a><a href="<%= url %>" class="sidebar-desktops-item-link"><%= name %></a>'),
+  template: _.template('<a href="#" class="desktop-delete">Delete</a><a href="<%= url %>" class="sidebar-desktops-item-link"><input value="<%= name %>" disabled></a>'),
   events: {
     'click .sidebar-desktops-item-link': 'open',
     'click .desktop-delete'            : 'delete'

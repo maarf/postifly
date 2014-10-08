@@ -93,6 +93,19 @@
     width: 26px;
   }
   
+  input {
+    background: rgba(255,255,255,0);
+    border: 0;
+    color: #6A6D7C;
+    font: 13px/24px "Helvetica Neue", Arial, sans-serif;
+    font-weight: 500;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+  }
+  
   .selected & {
     background: #515459;
     color: #A1A6B2;
@@ -103,6 +116,10 @@
     &:before {
       border-color: #868994;
       top: 18px;
+    }
+    
+    input {
+      color: #A1A6B2;
     }
   }
 }
