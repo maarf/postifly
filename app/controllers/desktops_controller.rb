@@ -1,6 +1,10 @@
 class DesktopsController < ApplicationController
   respond_to :html, :json
   
+  def index
+    redirect_to Desktop.first
+  end
+  
   def show
     @desktops = Desktop.all
     @current_desktop = if params[:id] then Desktop.find(params[:id]) else Desktop.first end

@@ -108,9 +108,11 @@ var DesktopRow = Backbone.View.extend({
     
     if (desktopToSelect) {
       Postifly.router.navigate('desktops/' + desktopToSelect.id, { trigger: true });
+      this.model.destroy();
+      this.remove();
+      
+    } else {
+      alert("Sorry, the last desktop has to stay.");
     }
-    
-    this.model.destroy();
-    this.remove();
   }
 })
