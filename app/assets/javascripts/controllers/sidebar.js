@@ -7,7 +7,11 @@ var SidebarController = {
     Postifly.desktops.forEach(function(desktop) {
       var desktopElement = $("#desktop-row-" + desktop.get("id"));
       if (desktopElement.length) {
-        new DesktopRow({ model: desktop, el: desktopElement[0] });
+        var desktopRow = new DesktopRow({ model: desktop, el: desktopElement[0] });
+        // Render if the row is selected so delete link shows up
+        if (desktopElement.hasClass('selected')) {
+          desktopRow.render();
+        }
       }
     });
     

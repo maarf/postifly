@@ -15,6 +15,12 @@ class DesktopsController < ApplicationController
     respond_with @desktop
   end
   
+  def destroy
+    @desktop = Desktop.find(params[:id])
+    @desktop.destroy
+    respond_with(@desktop)
+  end
+  
   private
   
   def desktop_params

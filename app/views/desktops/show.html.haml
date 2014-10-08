@@ -7,10 +7,8 @@
   
   %ul.sidebar-desktops
     - @desktops.each do |desktop|
-      %li.sidebar-desktops-item{ id: "desktop-row-#{desktop.id}" }
-        - link_class = ["sidebar-desktops-item-link"]
-        - link_class << "selected" if desktop.id == @current_desktop.id
-        = link_to desktop.name, desktop_path(desktop), class: link_class
+      %li.sidebar-desktops-item{ id: "desktop-row-#{desktop.id}", class: ("selected" if desktop.id == @current_desktop.id) }
+        = link_to desktop.name, desktop_path(desktop), class: "sidebar-desktops-item-link"
     
     %li.sidebar-desktop-items-new
       = link_to "+", "#", title: "Add new desktop", class: "sidebar-desktop-items-new-link"

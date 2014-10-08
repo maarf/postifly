@@ -72,27 +72,28 @@
 
 .sidebar-desktops-item {
   border-bottom: 1px solid #262931;
+  position: relative;
+}
+
+.sidebar-desktops-item-link {
+  color: #6A6D7C;
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 32px 14px 88px;
+  position: relative;
   
-  a {
-    color: #6A6D7C;
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 14px 32px 14px 88px;
-    position: relative;
-    
-    &:before {
-      border: #4E535F 1px solid;
-      content: "";
-      height: 16px;
-      left: 34px;
-      position: absolute;
-      top: 17px;
-      width: 26px;
-    }
+  &:before {
+    border: #4E535F 1px solid;
+    content: "";
+    height: 16px;
+    left: 34px;
+    position: absolute;
+    top: 17px;
+    width: 26px;
   }
   
-  .selected {
+  .selected & {
     background: #515459;
     color: #A1A6B2;
     margin: -1px 0;
@@ -106,6 +107,40 @@
   }
 }
 
+.desktop-delete {
+  background: #434551;
+  border-radius: 10px;
+  display: none;
+  height: 20px;
+  position: absolute;
+  right: 16px;
+  text-indent: -9999px;
+  top: 17px;
+  width: 20px;
+  z-index: 10;
+  
+  &:before, &:after {
+    background: #A1A6B2;
+    content: "";
+    height: 10px;
+    left: 9px;
+    position: absolute;
+    top: 5px;
+    width: 2px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  
+  &:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  .selected & {
+    display: block;
+  }
+}
+  
 .sidebar-desktop-items-new a {
   display: block;
   height: 52px;
