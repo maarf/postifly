@@ -73,7 +73,7 @@ var NoteView = Backbone.View.extend({
   
   resizeTextarea: function() {
     setTimeout(function() {
-      this.$('textarea').trigger('autosize.resize');
+      this.$('textarea').trigger('autosize.resizeIncludeStyle');
     }, 10);
   },
   
