@@ -7,6 +7,7 @@ var DesktopRow = Backbone.View.extend({
     'dblclick .sidebar-desktops-item-link': 'startEditing',
     'blur     input':                       'endEditing',
     'keypress input':                       'keyPress',
+    'click    input':                       'clickOnInput',
     'click    .desktop-delete':             'delete'
   },
   
@@ -72,6 +73,7 @@ var DesktopRow = Backbone.View.extend({
   keyPress: function(event) {
     // Enter key pressed
     if (event.keyCode == 13) {
+      event.preventDefault();
       this.endEditing();
     
     // Escape key pressed
