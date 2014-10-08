@@ -3,13 +3,13 @@ var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)*([\w.,@?^=%&:\/~+#-]*[\w
 var NoteView = Backbone.View.extend({
   tagName: 'li',
   className: 'notes-list-item',
-  template: _.template('<a href="#" class="note-delete-link">Delete</a><div class="note-content"><textarea placeholder="enter your text"><%= content %></textarea></div>'),
+  template: _.template('<a href="#" class="note-delete-link">Delete</a><div class="note-content"><textarea class="note-textarea" placeholder="enter your text"><%= content %></textarea></div>'),
   events: {
-    "input textarea": "contentUpdate",
-    "focus textarea": "startEditing",
-    "blur textarea":  "stopEditing",
+    "input .note-textarea":    "contentUpdate",
+    "focus .note-textarea":    "startEditing",
+    "blur  .note-textarea":    "endEditing",
     "click .note-delete-link": "delete",
-    "click":          "click"
+    "click":                   "click"
   },
   
   initialize: function() {
@@ -82,7 +82,7 @@ var NoteView = Backbone.View.extend({
     this.$el.addClass('note-editing');
     this.isEditing = true;
   },
-  stopEditing: function() {
+  endEditing: function() {
     this.$el.addClass('note-just-edited');
     var view = this
     setTimeout(function() {

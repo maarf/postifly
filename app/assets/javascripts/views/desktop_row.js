@@ -1,14 +1,14 @@
 var DesktopRow = Backbone.View.extend({
   tagName: 'li',
   className: 'sidebar-desktops-item',
-  template: _.template('<a href="#" class="desktop-delete">Delete</a><a href="<%= url %>" class="sidebar-desktops-item-link"><input value="<%= name %>" disabled></a>'),
+  template: _.template('<a href="#" class="desktop-delete">Delete</a><a href="<%= url %>" class="desktop-link"><input class="desktop-input" value="<%= name %>" disabled></a>'),
   events: {
-    'click    .sidebar-desktops-item-link': 'open',
-    'dblclick .sidebar-desktops-item-link': 'startEditing',
-    'blur     input':                       'endEditing',
-    'keypress input':                       'keyPress',
-    'click    input':                       'clickOnInput',
-    'click    .desktop-delete':             'delete'
+    'click    .desktop-link':   'open',
+    'dblclick .desktop-link':   'startEditing',
+    'blur     .desktop-input':  'endEditing',
+    'keypress .desktop-input':  'keyPress',
+    'click    .desktop-input':  'clickOnInput',
+    'click    .desktop-delete': 'delete'
   },
   
   initialize: function() {
@@ -44,7 +44,7 @@ var DesktopRow = Backbone.View.extend({
   },
   
   startEditing: function() {
-    this.$('input').attr('disabled', false).focus().select();
+    this.$('.desktop-input').attr('disabled', false).focus().select();
   },
   endEditing: function() {
     // Check if not just edited because canceling also causes blur which again
@@ -56,7 +56,7 @@ var DesktopRow = Backbone.View.extend({
     
     console.log(1);
     
-    var input = this.$('input');
+    var input = this.$('.desktop-input');
     this.model.save({ 'name': input.val() });
     input.blur();
     input.attr('disabled', true);
@@ -65,7 +65,7 @@ var DesktopRow = Backbone.View.extend({
     console.log(2);
     this.setJustEdited();
     
-    var input = this.$('input');
+    var input = this.$('.desktop-input');
     input.val(this.model.get('name'));
     input.blur();
     input.attr('disabled', true);
